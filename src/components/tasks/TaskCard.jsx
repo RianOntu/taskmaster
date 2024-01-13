@@ -1,12 +1,13 @@
 import { ArrowRightIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { useDispatch } from 'react-redux';
+
 import {
   removeTask,
   updateStatus,
 } from '../../redux/features/tasks/tasksSlice';
+import {  useUpdateStatusMutation } from '../../redux/features/api/baseApi';
 
 const TaskCard = ({ task }) => {
-  const dispatch = useDispatch();
+  const [updateStatus,{data,error}]=useUpdateStatusMutation()
 
   let updatedStatus;
 
@@ -38,7 +39,7 @@ const TaskCard = ({ task }) => {
           </button>
           <button
             onClick={() =>
-              dispatch(updateStatus({ id: task.id, status: updatedStatus }))
+              updateStatus({ id: task._id, data:{status: updatedStatus} })
             }
             title="Update Status"
           >
